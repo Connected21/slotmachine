@@ -2,8 +2,11 @@
 
     var slotMachine = function(){
 
-        var credits = 100,
-            spinning = 3,
+        var credits = localStorage.getItem("credits") == null ? 100 : localStorage.getItem("credits");
+
+        $('#slot-credits').html(credits);
+
+        var spinning = 3,
             spin = [0,0,0],
             slotsTypes = {
                 'cherry': [2,5,10],
@@ -48,13 +51,15 @@
 
                 setInterval(blink($('#slot-credits')), 1000);
 
-                
+
 
             },
             addCredit = function(incrementCredits){
 
                 var currentCredits = credits;
                     credits += incrementCredits;
+
+                localStorage.setItem("credits", credits);
 
                 blink($('#slot-credits'));
 
@@ -92,6 +97,7 @@
 
                     spinning = 3;
                     credits --;
+                    localStorage.setItem("credits", credits);
 
                     $('#slot-credits').html(credits);
 
